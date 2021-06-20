@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Household Ledgers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Balance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_household_ledgers.each do |user_household_ledger| %>
+      <tr>
+        <td><%= user_household_ledger.user_id %></td>
+        <td><%= user_household_ledger.balance %></td>
+        <td><%= link_to 'Show', user_household_ledger %></td>
+        <td><%= link_to 'Edit', edit_user_household_ledger_path(user_household_ledger) %></td>
+        <td><%= link_to 'Destroy', user_household_ledger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User Household Ledger', new_user_household_ledger_path %>

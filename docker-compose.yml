@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - js-householdp-ledger-db-volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - "3308:3306"
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/js-household-ledger
+      - /js-household-ledger/node_modules
+    ports:
+      - "${WEB_PORT:-3002}:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=js-household-ledger
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=1234
+      - TZ=Asia/Tokyo
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+  webpacker:
+    image: js-household-ledger_web
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - TZ=Asia/Tokyo
+    volumes: 
+      - .:/js-household-ledger
+    command: ./bin/webpack-dev-server
+    ports:
+      - ${WEBPACKER_PORT:-3037}:3035
+
+volumes:
+  js-householdp-ledger-db-volume:
+

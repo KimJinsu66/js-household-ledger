@@ -1,0 +1,2 @@
+class DepositeAndWithdrawalCategory < ApplicationRecord
+end

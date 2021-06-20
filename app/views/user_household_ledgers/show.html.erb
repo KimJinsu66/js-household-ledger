@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_household_ledger.user_id %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @user_household_ledger.balance %>
+</p>
+
+<%= link_to 'Edit', edit_user_household_ledger_path(@user_household_ledger) %> |
+<%= link_to 'Back', user_household_ledgers_path %>
